@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ServletApiApplicationTests {
@@ -24,5 +25,15 @@ class ServletApiApplicationTests {
 		assertEquals(book.title(), postResponse.title());
 		assertEquals(book.subtitle(), postResponse.subtitle());
 		assertEquals(book.publisher(), postResponse.publisher());
+
+		Book[] books = restTemplate.getForObject("/books", Book[].class);
+		assertNotNull(books);
+		assertTrue(books.length == 1);
+
+		Book bookResponse = books[0];
+		assertNotNull(bookResponse.id());
+		assertEquals(book.title(), bookResponse.title());
+		assertEquals(book.subtitle(), bookResponse.subtitle());
+		assertEquals(book.publisher(), bookResponse.publisher());
 	}
 }
