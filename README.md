@@ -27,11 +27,19 @@ The following command starts both APIs and the PostgreSQL database.
 docker-compose up --build -d
 ```
 
+Port:
+- 8080 - servlet-api
+- 8181 - reactive-api
 ## Load Test
 
 For the load test, I'm using [Gatling with Java](https://docs.gatling.io/tutorials/scripting-intro/).
 
-### Ramp User Simulation
+```shell
+cd gatling-load-tests
+mvn gatling:test
+```
+
+### Ramp User Simulation - Locally
 
 - Gatling starts 500 virtual users over 10 seconds.
 - Each user sends a GET request to /books.
@@ -40,6 +48,17 @@ For the load test, I'm using [Gatling with Java](https://docs.gatling.io/tutoria
 ![](gatling-load-tests/screenshots/ramp_users_2.png)
 ![](gatling-load-tests/screenshots/ramp_users_3.png)
 
+
+### Ramp User Simulation - Docker
+
+After setting up Docker and Docker Compose, I re-ran the ramp-user test just for sake of curiosity.
+
+- Gatling starts 500 virtual users over 10 seconds.
+- Each user sends a GET request to /books.
+
+![](gatling-load-tests/screenshots/ramp_users_docker_1.png)
+![](gatling-load-tests/screenshots/ramp_users_docker_2.png)
+![](gatling-load-tests/screenshots/ramp_users_docker_3.png)
 
 
 
