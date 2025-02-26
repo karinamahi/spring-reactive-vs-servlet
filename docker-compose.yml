@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-bullseye
+    restart: always
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: sandbox
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespw
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  servlet-api:
+    build: ./servlet-api
+    container_name: servlet-api
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sandbox
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgrespw
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+  reactive-api:
+    build: ./reactive-api
+    container_name: reactive-api
+    depends_on:
+      - postgres
+    environment:
+      SPRING_R2DBC_URL: r2dbc:postgresql://postgres:5432/sandbox
+      SPRING_R2DBC_USERNAME: postgres
+      SPRING_R2DBC_PASSWORD: postgrespw
+    ports:
+      - "8081:8081"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

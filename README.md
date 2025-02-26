@@ -20,6 +20,13 @@ The data is saved in a PostgreSQL database.
 | H2 Database for Testing         | R2DBC H2 for Testing                      |
 | TestRestTemplate for Testing    | WebTestClient for Testing                 |
 
+## Running the applications
+
+The following command starts both APIs and the PostgreSQL database.
+```shell
+docker-compose up --build -d
+```
+
 ## Load Test
 
 For the load test, I'm using [Gatling with Java](https://docs.gatling.io/tutorials/scripting-intro/).
