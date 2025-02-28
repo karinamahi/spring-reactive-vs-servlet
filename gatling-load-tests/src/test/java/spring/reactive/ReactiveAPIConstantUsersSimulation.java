@@ -6,12 +6,12 @@ import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import java.time.Duration;
 
-import static io.gatling.javaapi.core.CoreDsl.rampUsers;
+import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
 import static io.gatling.javaapi.core.CoreDsl.scenario;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
-public class ReactiveAPIRampUsersSimulation extends Simulation {
+public class ReactiveAPIConstantUsersSimulation extends Simulation {
 
     // Add the HttpProtocolBuilder:
     HttpProtocolBuilder httpProtocol =
@@ -23,7 +23,7 @@ public class ReactiveAPIRampUsersSimulation extends Simulation {
 
     {
         setUp(
-                myScenario.injectOpen(rampUsers(500).during(Duration.ofSeconds(10))) // 100 users over 10 sec
+                myScenario.injectOpen(constantUsersPerSec(100).during(Duration.ofMinutes(5)))
         ).protocols(httpProtocol);
     }
 }

@@ -8,7 +8,7 @@ import io.gatling.javaapi.http.*;
 
 import java.time.Duration;
 
-public class RampUsersServletAPISimulation extends Simulation {
+public class ServletAPIRampUsersSimulation extends Simulation {
 
     // Add the HttpProtocolBuilder:
     HttpProtocolBuilder httpProtocol =

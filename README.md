@@ -61,6 +61,25 @@ After setting up Docker and Docker Compose, I re-ran the ramp-user test just for
 ![](gatling-load-tests/screenshots/ramp_users_docker_3.png)
 
 
+### Constant Users Simulation - Docker
+
+This test simulates a steady load of 100 users per second for 5 minutes.
+
+![](gatling-load-tests/screenshots/constant_users_docker_1.png)
+![](gatling-load-tests/screenshots/constant_users_docker_2.png)
+![](gatling-load-tests/screenshots/constant_users_docker_3.png)
+![](gatling-load-tests/screenshots/constant_users_docker_4.png)
+
+### Final Thoughts
+
+In all three tests, the servlet-api performed better than the reactive API.
+
+However, in the last test, we could clearly see that the servlet-api performed much better than the reactive-api, which is unexpected since WebFlux is designed for high-concurrency workloads.
+
+So, the next step would be to investigate the Reactive API implementation to identify the bottleneck and fix it.
+Additionally, more tests could be conducted, adjusting them to better reflect real-world scenarios.
+
+
 
 
 

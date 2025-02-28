@@ -1,4 +1,4 @@
-package spring.reactive;
+package spring.servlet;
 
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
@@ -6,16 +6,15 @@ import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import java.time.Duration;
 
-import static io.gatling.javaapi.core.CoreDsl.rampUsers;
-import static io.gatling.javaapi.core.CoreDsl.scenario;
+import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
-public class ReactiveAPIRampUsersSimulation extends Simulation {
+public class ServletAPIConstantUsersSimulation extends Simulation {
 
     // Add the HttpProtocolBuilder:
     HttpProtocolBuilder httpProtocol =
-            http.baseUrl("http://localhost:8081").acceptHeader("application/json");
+            http.baseUrl("http://localhost:8080").acceptHeader("application/json");
 
     // Add the ScenarioBuilder:
     ScenarioBuilder myScenario = scenario("Get Books")
@@ -23,7 +22,7 @@ public class ReactiveAPIRampUsersSimulation extends Simulation {
 
     {
         setUp(
-                myScenario.injectOpen(rampUsers(500).during(Duration.ofSeconds(10))) // 100 users over 10 sec
+                myScenario.injectOpen(constantUsersPerSec(100).during(Duration.ofMinutes(5)))
         ).protocols(httpProtocol);
     }
 }
